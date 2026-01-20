@@ -1,5 +1,5 @@
 # Generics in Java
-
+before generic objects are used for generalization
 ## Object for Generalization
 
 Object can be used for generalization, but it has some problems:
@@ -7,8 +7,49 @@ Object can be used for generalization, but it has some problems:
 ### Problems
 1. There is no type safety (e.g., storing a String, then later an Integer).
 2. Typecasting is required.
+3. No error on type casting
+   
+```java
+// class object
+package genericdemo;
+
+public class GenericDemo
+{
+    public static void main(String[] args)
+    {
+        Object obj = new String("Hello");  
+       // obj = new Integer(10);          // No typecasting saftey
+
+        String str = (String)obj;         //typecasting is requird & No error if obj were integer and typecasting by String
+    }
+}
+```
+```java
+//array of objects
+public class GenericDemo
+{
+    public static void main(String[] args)
+    {
+        Object obj[] = new Object[3];    // problem is it can store mix of objects which create issue in like type casting
+
+        obj[0] = "hi";
+        obj[1] = "bye";
+        obj[2] = new Integer(10);
+
+        String str;
+
+        for(int i = 0; i < 3; i++)
+        {
+            str = (String)obj[i];
+            System.out.println(str);
+        }
+    }
+}
+```
+
 
 ```java
+// Generic type array
 package genericdemo;
 
 public class GenericDemo<T>
@@ -17,13 +58,13 @@ public class GenericDemo<T>
 
     public static void main(String[] args)
     {
-        GenericDemo<String> gd = new GenericDemo();
+        GenericDemo<String> gd = new GenericDemo();   //
 
         gd.data[0] = "hi";
         gd.data[1] = "bye";
-        gd.data[2] = new Integer(10);
+        gd.data[2] = new Integer(10);  // compiler give error here as only String can be use
 
-        String str = gd.data[0];
+        String str = gd.data[0];     // No need of typeCasting
     }
 }
 ```
