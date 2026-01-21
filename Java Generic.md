@@ -54,7 +54,7 @@ package genericdemo;
 
 public class GenericDemo<T>
 {
-    T data[] = (T[]) new Object[3];
+    T data[] = (T[]) new Object[3];         // static is not allowed because T type is not defined yet.
 
     public static void main(String[] args)
     {
