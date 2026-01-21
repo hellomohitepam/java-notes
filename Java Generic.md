@@ -231,7 +231,23 @@ public class GenericDemo
 }
 ```
 6. Base type of an Object should be same or ?
+```java
+public class GenericDemo
+{
+    static void fun(MyArray<?> obj)
+    {
+        obj.append(null);
+    }
 
+    public static void main(String[] args)
+    {
+        MyArray<Number> ma1 = new MyArray<Integer>();    // not allowed
+        MyArray<Integer> ma1 = new MyArray<Integer>();  // allowed
+        MyArray<?> ma1 = new MyArray<Integer>();  // allowed but you can not access `ma1.append(5)`
+        fun(ma1);
+    }
+}
+```
 
 
 
