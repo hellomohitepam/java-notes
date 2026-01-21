@@ -178,6 +178,7 @@ class genericdemo {
 3. Subtype:
    
    (a) if Parent ParameterType while extending subclass is mentioned then subclass only store that type else any object type `class MyArray2 extends MyArray<String>`.
+   
    (b) if you want child class extends as generic then you must make child class as generic `class MyArray2<T> extends MyArray<T>`
 
 5. Bounded Type:
@@ -185,7 +186,7 @@ class genericdemo {
 class MyArray<T extends Number> // now only subclass of Number is permitted, extends must be used for both class & interface
 ```
 # Since we write Generic class we can also write generic method
-as in generic class we need to write <T> (ParametricType) in generic methods also we need to write <T>(ParametricType) before return type.
+as in generic class we need to write <T> (ParametricType) after className, but in generic methods we need to write <T>(ParametricType) before return type.
 
 1. Generic Methods (Bound also works)
 
