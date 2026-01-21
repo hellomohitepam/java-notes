@@ -135,36 +135,39 @@ public class GenericDemo
 ```
 ```java
 // This generic class store array of object of one type only
-package genericdemo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 class MyArray<T>
 {
-    T A[] = (T[]) new Object[10];
+    List<T> list = new ArrayList<>();
     int length = 0;
 
     public void append(T v)
     {
-        A[length++] = v;
+        length++;
+        list.add(v);
     }
 
     public void display()
     {
         for(int i=0; i<length; i++)
         {
-            System.out.println(A[i]);
+            System.out.println(list.get(i));
         }
     }
 }
+class genericdemo {
+    public static void main(String[] args) {
+        MyArray<Integer> ma = new MyArray<>();
 
-public static void main(String[] args)
-{
-    MyArray<Integer> ma = new MyArray<>();
+        ma.append(10);
+        ma.append(20);
+        ma.append(30);
 
-    ma.append(10);
-    ma.append(20);
-    ma.append(30);
-
-    ma.display();
+        ma.display();
+    }
 }
 ```
 
