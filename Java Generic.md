@@ -81,6 +81,25 @@ public class GenericDemo<T>
     }
 }
 ```
+
+```java
+// ✅ Use List<T> instead of array
+import java.util.ArrayList;
+import java.util.List;
+
+class GenericDemo<T> {
+    List<T> data = new ArrayList<>();
+
+    public static void main(String[] args) {
+        GenericDemo<String> gd = new GenericDemo<>();
+        gd.data.add("hi");
+        gd.data.add("bye");
+
+        String s = gd.data.get(0);
+    }
+}
+
+```
 usually we do not have to create Generic class we just use
 # Generic Class
 ## Templates are for objects, not for primitive data types.
