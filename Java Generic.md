@@ -141,19 +141,23 @@ public static void main(String[] args)
 1. If no ParameterType use for the generic class, it will be treated like Object.
 2. Multiple parameters (generally used for key-value pairs & if no ParameterType is present then it will treat like object).
 3. Subtype:
-   a. if Parent ParameterType while extending subclass is mentioned then subclass only store that type else any object type `class MyArray2 extends MyArray<String>`.
-   b. if you want child class extends as generic then you must make child class as generic `class MyArray2<T> extends MyArray<T>`
+   
+   (a) if Parent ParameterType while extending subclass is mentioned then subclass only store that type else any object type `class MyArray2 extends MyArray<String>`.
+   (b) if you want child class extends as generic then you must make child class as generic `class MyArray2<T> extends MyArray<T>`
 
-4. Bounded Type:
+5. Bounded Type:
 ```
 class MyArray<T extends Number> // now only subclass of Number is permitted, extends must be used for both class & interface
 ```
-# 1. Generic Methods (Bound also works)
+# Since we write Generic class we can also write generic method
+as in generic class we need to write <T> (ParametricType) in generic methods also we need to write <T>(ParametricType) before return type.
 
-```
+1. Generic Methods (Bound also works)
+
+```java
 public class GenericDemo
 {
-    static <E> void show(E... list)
+    static <E> void show(E[] list)      // static <E> void show(E... list) we can also use variable arguments
     {
         for(E x : list)
         {
@@ -168,12 +172,19 @@ public class GenericDemo
     }
 }
 ```
- 2. Wildcard ?
+ 2. Wildcard `?` : we can use it as argument list/parameter list
+
+```java
+static <T> void fun(MyArray<T> obj)       //if you want to add <T>(Parametric Type) as argument then must add <T> before return type
+    {
+        obj.display();
+    }
+```
 
 ```
 public class GenericDemo
 {
-    static void fun(MyArray<?> obj)
+    static void fun(MyArray<?> obj)       //static void fun(MyArray obj) works same
     {
         obj.display();
     }
@@ -193,23 +204,33 @@ public class GenericDemo
     }
 }
 ```
-3. Lower Bound {super}
-4. Upper Bound {extends}
+3. Lower Bound: `void fun(MyArray<? super child> obj)` {parent of child & child is only accepted} 
+4. Upper Bound `void fun(MyArray<? extends parent> obj)` {child of parent & parent is only accepted} 
 
-# Do’s and Don’ts in Generics
+### Do’s and Don’ts in Generics
+
 1. Only extends is allowed in Generic class definition.
 2. extends is used for interfaces also.
 3. extends from only one class and multiple interfaces.
+   `class MyArray<T extends A & B & C>{}` A is class, B & C is interface, Here MyArray only accept that object/class if it extends A, implements B & C.
 4. extends and super are allowed with ? in methods.
 5. <?> will accept all types but cannot access.
-```
-MyArray<?> ma1 = new MyArray<Integer>();
-ma1.append(10);
-fun(ma1);
+```java
+public class GenericDemo
+{
+    static void fun(MyArray<?> obj)  //`void fun(MyArray<String> obj)` or `void fun(MyArray<? extends object> obj)` then you can access any class inside the methods.
+    {
+        obj.append(null);            // if ? is there then you can just use null because ? is generic it does not know what you are storing.
+    }
+
+    public static void main(String[] args)
+    {
+        MyArray<String> ma1 = new MyArray<>();
+        fun(ma1);
+    }
+}
 ```
 6. Base type of an Object should be same or ?
-```
-
 
 
 
