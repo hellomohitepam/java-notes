@@ -118,7 +118,8 @@ class MobilePhone{
 ```
 
 ----
-# Stream : is a feature which process collection of data in a functional[lambda] & declarative manner[filter..].
+# Stream : 
+is a feature which process collection of data in a functional[lambda] & declarative manner[filter..].
 Simplify Data Processing
 Embrace Functional Programming
 Improve Readability and Maintainability
