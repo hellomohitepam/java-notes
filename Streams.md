@@ -367,6 +367,100 @@ public class ParallelStream {
 }
 ```
 
+---
+# Collector
+* Collectors is a utility class (Like Arrays)
+* provides a set of methods to create common collectors
+
+` List<String> names = Arrays.asList("Alice", "Bob", "Charlie");`
+` List<Integer> nums = Arrays.asList(1, 2, 2, 3, 4, 4, 5);`
+1. Collecting to a List
+
+```java
+List<String> res = names.stream().collect(Collectors.toList());
+```
+
+2. Collecting to a Set
+
+```java
+Set<Integer> set = nums.stream().collect(Collectors.toSet());
+```
+
+3. Collecting to a Specific Collection
+
+```java
+ArrayDeque<String> collect = names.stream().collect(Collectors.toCollection(() -> new ArrayDeque<>()));
+```
+
+4. Joining Strings
+Concatenates stream elements into a single String
+
+```java
+String concatenatedNames = names.stream().map(String::toUpperCase).collect(Collectors.joining(", "));
+```
+
+5. Summarizing Data
+Generates statistical summary (count, sum, min, average, max)
+
+```java
+IntSummaryStatistics stats = nums.stream().collect(Collectors.summarizingInt(x -> x));
+
+System.out.println("Count: " + stats.getCount());
+System.out.println("Sum: " + stats.getSum());
+System.out.println("Min: " + stats.getMin());
+System.out.println("Average: " + stats.getAverage());
+System.out.println("Max: " + stats.getMax());
+
+```
+`Double average = numbers.stream().collect(Collectors.averagingInt(x -> x));`
+
+6. Counting Elements
+```java
+Long count = nums.stream().collect(Collectors.counting());
+```
+
+7. Grouping Elements
+
+```java
+List<String> words = Arrays.asList("hello", "world", "java", "streams", "collecting");
+        System.out.println(words.stream().collect(Collectors.groupingBy(String::length)));
+// {4=[java], 5=[hello, world], 7=[streams], 10=[collecting]}
+     System.out.println(words.stream().collect(Collectors.groupingBy(String::length, Collectors.joining(", "))));
+// {4=java, 5=hello, world, 7=streams, 10=collecting}
+     System.out.println(words.stream().collect(Collectors.groupingBy(String::length, Collectors.counting())));
+// {4=1, 5=2, 7=1, 10=1}
+
+        TreeMap<Integer, Long> treeMap = words.stream().collect(Collectors.groupingBy(String::length, TreeMap::new, Collectors.counting()));
+        System.out.println(treeMap);
+// {4=1, 5=2, 7=1, 10=1}
+```
+
+8. Partitioning Elements
+Partitions elements into two groups (true and false) based on a predicate
+```java
+System.out.println(words.stream().collect(Collectors.partitioningBy(x -> x.length() > 5)));
+```
+
+9. Mapping and Collecting
+Applies a mapping function before collecting
+```java
+ System.out.println(words.stream().collect(Collectors.mapping(x -> x.toUpperCase(), Collectors.toList())));
+```
+
+10. toMap
+
+```java
+List<String> words2 = Arrays.asList("apple", "banana", "apple", "orange", "banana", "apple");
+        System.out.println(words2.stream().collect(Collectors.toMap(k -> k, v -> 1, (x, y) -> x + y)));;
+```
+
+
+
+
+
+
+
+
 
 
 
