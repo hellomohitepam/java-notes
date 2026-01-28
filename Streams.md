@@ -265,6 +265,8 @@ list.stream().skip(1).toSet();
 2. forEach
 
 ```java
+void forEach(Consumer<? super T> action)
+
 list.stream().forEach(x -> System.out.println(x));
 ```
 
@@ -277,10 +279,15 @@ System.out.println(optionalInteger.get());
 ```
 4. count
 
+```java
+long a = list.stream().filter(x -> x.startsWith("A")).distinct().count();
+```
 
 5. anyMatch, allMatch, noneMatch
 
 ```java
+boolean anyMatch(Predicate<? super T> predicate)
+
 boolean b = list.stream().anyMatch(x -> x % 2 == 0);
 System.out.println(b);
 
@@ -316,11 +323,8 @@ System.out.println("min: " + Stream.of(2, 44, 69).min(Comparator.naturalOrder())
 ```java
 List<Integer> numbers0 = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
-System.out.println("Using forEach with parallel stream:");
-numbers0.parallelStream().forEach(System.out::println);
-
-System.out.println("Using forEachOrdered with parallel stream:");
-numbers0.parallelStream().forEachOrdered(System.out::println);
+numbers0.parallelStream().forEach(System.out::println);   // 76910835421
+numbers0.parallelStream().forEachOrdered(System.out::println);  //12345678910
 ```
 Note: Streams cannot be reused after a terminal operation has been called
 
