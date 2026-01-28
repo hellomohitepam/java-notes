@@ -119,20 +119,42 @@ class MobilePhone{
     }
 }
 ```
+---
+# Streams in Programming
 
-----
-# Stream : 
-is a feature which process collection of data in a functional[lambda] & declarative manner[filter..].
-Simplify Data Processing
-Embrace Functional Programming
-Improve Readability and Maintainability
-Enable Easy Parallelism
+## What is a Stream?
+A **Stream** is a sequence of elements that supports **functional** and **declarative programming**.  
+It allows data to be processed in a pipeline style using operations like filtering, mapping, and reducing.
 
-#What is stream ?
-A sequence of elements supporting functional and declarative programing
+## Key Characteristics of Streams
+- Process collections of data in a **functional (lambda-based)** manner
+- Use **declarative programming** (describe *what* to do, not *how* to do it)
+- Do not store data; they **process data on demand**
+- Can be processed **sequentially or in parallel**
 
-#How to Use Streams ?
- Source, intermediate operations & terminal operation
+## Benefits of Using Streams
+- **Simplifies data processing**
+- **Encourages functional programming**
+- **Improves readability and maintainability**
+- **Enables easy parallelism**
+
+## Stream Processing Model
+A stream pipeline consists of three main parts:
+
+1. **Source**
+   - The origin of the data  
+   - Examples: collections, arrays, I/O channels
+
+2. **Intermediate Operations**
+   - Transform the stream  
+   - Examples: `filter`, `map`, `sorted`
+   - These operations are **lazy** (executed only when needed)
+
+3. **Terminal Operation**
+   - Produces a result or side effect  
+   - Examples: `forEach`, `collect`, `reduce`
+   - Triggers the execution of the stream pipeline
+
         
 ```java
 List<Integer> list = Arrays.asList(1,2,3);
