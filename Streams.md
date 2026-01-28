@@ -184,7 +184,7 @@ long res = list.stream().filter(x -> x.startsWith("A")).count();
 System.out.println(res);
 ```
 
-2.map
+2. map
 
 ```java
 Stream<String> stringStream = list.stream().map(String::toUpperCase);
