@@ -139,22 +139,7 @@ It allows data to be processed in a pipeline style using operations like filteri
 - **Enables easy parallelism**
 
 ## Stream Processing Model
-A stream pipeline consists of three main parts:
-
-1. **Source**
-   - The origin of the data  
-   - Examples: collections, arrays, I/O channels
-
-2. **Intermediate Operations**
-   - Transform the stream  
-   - Examples: `filter`, `map`, `sorted`
-   - These operations are **lazy** (executed only when needed)
-
-3. **Terminal Operation**
-   - Produces a result or side effect  
-   - Examples: `forEach`, `collect`, `reduce`
-   - Triggers the execution of the stream pipeline
-
+* A stream pipeline consists of three main parts: Source, intermediate operations & terminal operation
         
 ```java
 List<Integer> list = Arrays.asList(1,2,3);
