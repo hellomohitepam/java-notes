@@ -27,59 +27,60 @@ Its main goal is to **reduce `NullPointerException` (NPE)** and make the **absen
 
 ## 3. Creating `Optional` Objects
 
-### 3.1 `Optional.empty()`
+# `Optional.empty()`
 Creates an empty `Optional`.
 
 `Optional<String> opt = Optional.empty();`
 
-Creates an Optional containing a non-null value
+# Creates an Optional containing a non-null value
 
 `Optional<String> opt = Optional.of("Java");`
 
 ⚠️ Throws NullPointerException if value is null.
 
-Creates an Optional that may hold a null value.
+# Creates an Optional that may hold a null value.
 
 `Optional<String> opt = Optional.ofNullable(null);`
 
 ✅ Safest way when value may be null.
 
-Returns true if value exists.
+# Returns true if value exists.
 
 `if (opt.isPresent()) {
     System.out.println(opt.get());
 }`
 
-ifPresent(Consumer)
+# ifPresent(Consumer)
 
 Executes code only if value exists.
 
 `opt.ifPresent(value -> System.out.println(value));`
 
-ifPresentOrElse(Consumer, Runnable)
+# ifPresentOrElse(Consumer, Runnable)
 
 `opt.ifPresentOrElse(
     value -> System.out.println(value),
     () -> System.out.println("No value")
 );`
 
-Returns true if value is absent.
+# Returns true if value is absent.
 
 `if (opt.isEmpty()) {
     System.out.println("No value present");
 }`
 
-Returns the value if present.
+# Returns the value if present.
 
 `String value = opt.get();`
 
 ⚠️ Throws NoSuchElementException if empty.
 
-Returns value if present, otherwise returns default.
+# Returns value if present, otherwise returns default.
 
 `String value = opt.orElse("Default");`
 
-orElseGet(Supplier)
+# orElseGet(Supplier)
+
 Returns value if present, otherwise computes default lazily.
 
 `String value = opt.orElseGet(() -> "Computed Default");`
@@ -88,7 +89,7 @@ Throws NoSuchElementException if empty.
 
 `String value = opt.orElseThrow();`
 
-orElseThrow(Supplier<Exception>)
+# orElseThrow(Supplier<Exception>)
 
 Throws custom exception.
 
@@ -96,7 +97,7 @@ Throws custom exception.
     () -> new IllegalArgumentException("Value missing")
 );`
 
-Transforming Values
+# Transforming Values
 
 map(Function)
 
@@ -105,7 +106,7 @@ map(Function)
 - If empty → remains empty
 - If function returns null → empty Optional
 
-flatMap(Function)
+# flatMap(Function)
 
 Used when the mapping function returns an Optional.
 
@@ -113,7 +114,7 @@ Used when the mapping function returns an Optional.
 
 Prevents nested Optional<Optional<T>>.
 
-filter(Predicate)
+# filter(Predicate)
 
 Keeps value only if condition matches.
 
@@ -121,14 +122,14 @@ Keeps value only if condition matches.
 
 Condition fails → empty Optional
 
-Converting Optional to Stream
+# Converting Optional to Stream
 
 `opt.stream().forEach(System.out::println);`
 
 - Empty → empty stream
 - Present → single-element stream
 
-Using Optional in Stream Pipelines
+# Using Optional in Stream Pipelines
 
 `List<String> result =
     list.stream()
