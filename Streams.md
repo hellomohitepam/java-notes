@@ -1,11 +1,14 @@
 
 Java 8 --> minimal code, functional programing
+
 Java 8 --> lambda expression, Streams, Date & Time API
 
-#lambda expression is an anonymous function ( no name, no return type, no access modifier )
+lambda expression is an anonymous function ( no name, no return type, no access modifier )
 
 if we have to implement single method in the class then we can use lambda expression (e.g. run in Runable interface).
+
 functional interface(Which have only one abstract methods rest can be default & static) use to hold lambda expression.
+
 lambda expression implements only functional interface
 
 # Predicate
@@ -116,20 +119,27 @@ class MobilePhone{
     }
 }
 ```
+---
+# Streams in Programming
 
-----
-# Stream : 
-is a feature which process collection of data in a functional[lambda] & declarative manner[filter..].
-Simplify Data Processing
-Embrace Functional Programming
-Improve Readability and Maintainability
-Enable Easy Parallelism
+## What is a Stream?
+A **Stream** is a sequence of elements that supports **functional** and **declarative programming**.  
+It allows data to be processed in a pipeline style using operations like filtering, mapping, and reducing.
 
-#What is stream ?
-A sequence of elements supporting functional and declarative programing
+## Key Characteristics of Streams
+- Process collections of data in a **functional (lambda-based)** manner
+- Use **declarative programming** (describe *what* to do, not *how* to do it)
+- Do not store data; they **process data on demand**
+- Can be processed **sequentially or in parallel**
 
-#How to Use Streams ?
- Source, intermediate operations & terminal operation
+## Benefits of Using Streams
+- **Simplifies data processing**
+- **Encourages functional programming**
+- **Improves readability and maintainability**
+- **Enables easy parallelism**
+
+## Stream Processing Model
+* A stream pipeline consists of three main parts: Source, intermediate operations & terminal operation
         
 ```java
 List<Integer> list = Arrays.asList(1,2,3);
@@ -174,11 +184,11 @@ long res = list.stream().filter(x -> x.startsWith("A")).count();
 System.out.println(res);
 ```
 
-2.map
+2. map
 
 ```java
 Stream<String> stringStream = list.stream().map(String::toUpperCase);
-Stream<String> stringStream = list.stream().map(String::toUpperCase);
+List<String> list = list.stream().map(String::toUpperCase).toList();
 ```
 
 3. sorted
@@ -190,13 +200,13 @@ Stream<String> sortedStreamUsingComparator = list.stream().sorted((a, b) -> a.le
  4. distinct
 
 ```java
-System.out.println(list.stream().filter(x -> x.startsWith("A")).distinct().count());
+long a = list.stream().filter(x -> x.startsWith("A")).distinct().count();
 ```
 
 5. limit
 
 ```java
-System.out.println(Stream.iterate(1, x -> x + 1).limit(100).count());
+long a = Stream.iterate(1, x -> x + 1).limit(100).count();
 ```
         
 6. skip
@@ -255,6 +265,8 @@ list.stream().skip(1).toSet();
 2. forEach
 
 ```java
+void forEach(Consumer<? super T> action)
+
 list.stream().forEach(x -> System.out.println(x));
 ```
 
@@ -267,10 +279,15 @@ System.out.println(optionalInteger.get());
 ```
 4. count
 
+```java
+long a = list.stream().filter(x -> x.startsWith("A")).distinct().count();
+```
 
 5. anyMatch, allMatch, noneMatch
 
 ```java
+boolean anyMatch(Predicate<? super T> predicate)
+
 boolean b = list.stream().anyMatch(x -> x % 2 == 0);
 System.out.println(b);
 
@@ -306,11 +323,8 @@ System.out.println("min: " + Stream.of(2, 44, 69).min(Comparator.naturalOrder())
 ```java
 List<Integer> numbers0 = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
-System.out.println("Using forEach with parallel stream:");
-numbers0.parallelStream().forEach(System.out::println);
-
-System.out.println("Using forEachOrdered with parallel stream:");
-numbers0.parallelStream().forEachOrdered(System.out::println);
+numbers0.parallelStream().forEach(System.out::println);   // 76910835421
+numbers0.parallelStream().forEachOrdered(System.out::println);  //12345678910
 ```
 Note: Streams cannot be reused after a terminal operation has been called
 
@@ -366,6 +380,126 @@ public class ParallelStream {
     }
 }
 ```
+
+---
+# Collector
+* Collectors is a utility class (Like Arrays)
+* provides a set of methods to create common collectors
+
+` List<String> names = Arrays.asList("Alice", "Bob", "Charlie");`
+` List<Integer> nums = Arrays.asList(1, 2, 2, 3, 4, 4, 5);`
+1. Collecting to a List
+
+```java
+List<String> res = names.stream().collect(Collectors.toList());
+```
+
+2. Collecting to a Set
+
+```java
+Set<Integer> set = nums.stream().collect(Collectors.toSet());
+```
+
+3. Collecting to a Specific Collection
+
+```java
+ArrayDeque<String> collect = names.stream().collect(Collectors.toCollection(() -> new ArrayDeque<>()));
+```
+
+4. Joining Strings
+Concatenates stream elements into a single String
+
+```java
+String concatenatedNames = names.stream().map(String::toUpperCase).collect(Collectors.joining(", "));
+```
+
+5. Summarizing Data
+Generates statistical summary (count, sum, min, average, max)
+
+```java
+IntSummaryStatistics stats = nums.stream().collect(Collectors.summarizingInt(x -> x));
+
+System.out.println("Count: " + stats.getCount());
+System.out.println("Sum: " + stats.getSum());
+System.out.println("Min: " + stats.getMin());
+System.out.println("Average: " + stats.getAverage());
+System.out.println("Max: " + stats.getMax());
+
+```
+`Double average = numbers.stream().collect(Collectors.averagingInt(x -> x));`
+
+6. Counting Elements
+```java
+Long count = nums.stream().collect(Collectors.counting());
+```
+
+7. Grouping Elements
+
+```java
+List<String> words = Arrays.asList("hello", "world", "java", "streams", "collecting");
+        System.out.println(words.stream().collect(Collectors.groupingBy(String::length)));
+// {4=[java], 5=[hello, world], 7=[streams], 10=[collecting]}
+     System.out.println(words.stream().collect(Collectors.groupingBy(String::length, Collectors.joining(", "))));
+// {4=java, 5=hello, world, 7=streams, 10=collecting}
+     System.out.println(words.stream().collect(Collectors.groupingBy(String::length, Collectors.counting())));
+// {4=1, 5=2, 7=1, 10=1}
+
+        TreeMap<Integer, Long> treeMap = words.stream().collect(Collectors.groupingBy(String::length, TreeMap::new, Collectors.counting()));
+        System.out.println(treeMap);
+// {4=1, 5=2, 7=1, 10=1}
+```
+
+8. Partitioning Elements
+Partitions elements into two groups (true and false) based on a predicate
+```java
+System.out.println(words.stream().collect(Collectors.partitioningBy(x -> x.length() > 5)));
+```
+
+9. Mapping and Collecting
+Applies a mapping function before collecting
+```java
+ System.out.println(words.stream().collect(Collectors.mapping(x -> x.toUpperCase(), Collectors.toList())));
+```
+
+10. toMap
+
+```java
+List<String> words2 = Arrays.asList("apple", "banana", "apple", "orange", "banana", "apple");
+        System.out.println(words2.stream().collect(Collectors.toMap(k -> k, v -> 1, (x, y) -> x + y)));;
+```
+
+```java
+
+        // Example 1: Collecting Names by Length
+        List<String> l1 = Arrays.asList("Anna", "Bob", "Alexander", "Brian", "Alice");
+        System.out.println(l1.stream().collect(Collectors.groupingBy(String::length)));
+
+        // Example 2: Counting Word Occurrences
+        String sentence = "hello world hello java world";
+        System.out.println(Arrays.stream(sentence.split(" ")).collect(Collectors.groupingBy(x -> x, Collectors.counting())));
+
+        // Example 3: Partitioning Even and Odd Numbers
+        List<Integer> l2 = Arrays.asList(1, 2, 3, 4, 5, 6);
+        System.out.println(l2.stream().collect(Collectors.partitioningBy(x -> x % 2 == 0)));
+
+        // Example 4: Summing Values in a Map
+        Map<String, Integer> items = new HashMap<>();
+        items.put("Apple", 10);
+        items.put("Banana", 20);
+        items.put("Orange", 15);
+        System.out.println(items.values().stream().reduce(Integer::sum));
+        System.out.println(items.values().stream().collect(Collectors.summingInt(x -> x)));
+
+        // Example 5: Creating a Map from Stream Elements
+        List<String> fruits = Arrays.asList("Apple", "Banana", "Cherry");
+        System.out.println(fruits.stream().collect(Collectors.toMap(x -> x.toUpperCase(), x -> x.length())));
+
+```
+
+
+
+
+
 
 
 
