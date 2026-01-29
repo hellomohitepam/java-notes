@@ -137,10 +137,15 @@ Using Optional in Stream Pipelines
         .toList();`
 
 # Best Practices
+
 ✅ Use Optional for return values
+
 ❌ Do not use Optional for fields or parameters
+
 ❌ Do not call get() without checking
+
 ✅ Prefer map, flatMap, and orElseGet
+
 ❌ Do not serialize Optional
 
 
