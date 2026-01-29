@@ -121,6 +121,8 @@ Keeps value only if condition matches.
 `Optional<String> filtered =Optional.of("Java").filter(s -> s.length() > 3);`
 
 Condition fails → empty Optional
+Once filter() fails, the rest of the chain is skipped
+orElse() handles the empty case safely
 
 # Converting Optional to Stream
 
