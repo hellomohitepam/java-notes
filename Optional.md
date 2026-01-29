@@ -33,49 +33,65 @@ Creates an empty `Optional`.
 `Optional<String> opt = Optional.empty();`
 
 Creates an Optional containing a non-null value
+
 `Optional<String> opt = Optional.of("Java");`
+
 ⚠️ Throws NullPointerException if value is null.
 
 Creates an Optional that may hold a null value.
+
 `Optional<String> opt = Optional.ofNullable(null);`
+
 ✅ Safest way when value may be null.
 
 Returns true if value exists.
+
 `if (opt.isPresent()) {
     System.out.println(opt.get());
 }`
 
 ifPresent(Consumer)
+
 Executes code only if value exists.
+
 `opt.ifPresent(value -> System.out.println(value));`
 
 ifPresentOrElse(Consumer, Runnable)
+
 `opt.ifPresentOrElse(
     value -> System.out.println(value),
     () -> System.out.println("No value")
 );`
 
 Returns true if value is absent.
+
 `if (opt.isEmpty()) {
     System.out.println("No value present");
 }`
 
 Returns the value if present.
+
 `String value = opt.get();`
+
 ⚠️ Throws NoSuchElementException if empty.
 
 Returns value if present, otherwise returns default.
+
 `String value = opt.orElse("Default");`
 
 orElseGet(Supplier)
 Returns value if present, otherwise computes default lazily.
+
 `String value = opt.orElseGet(() -> "Computed Default");`
 
 Throws NoSuchElementException if empty.
+
 `String value = opt.orElseThrow();`
 
 orElseThrow(Supplier<Exception>)
+
 Throws custom exception.
+
 `String value = opt.orElseThrow(
     () -> new IllegalArgumentException("Value missing")
 );`
@@ -83,26 +99,37 @@ Throws custom exception.
 Transforming Values
 
 map(Function)
+
 `Optional<Integer> length = Optional.of("Java").map(String::length);`
+
 - If empty → remains empty
 - If function returns null → empty Optional
 
 flatMap(Function)
+
 Used when the mapping function returns an Optional.
+
 `Optional<String> result = opt.flatMap(this::getOptionalValue);`
+
 Prevents nested Optional<Optional<T>>.
 
 filter(Predicate)
+
 Keeps value only if condition matches.
+
 `Optional<String> filtered =Optional.of("Java").filter(s -> s.length() > 3);`
+
 Condition fails → empty Optional
 
 Converting Optional to Stream
+
 `opt.stream().forEach(System.out::println);`
+
 - Empty → empty stream
 - Present → single-element stream
 
 Using Optional in Stream Pipelines
+
 `List<String> result =
     list.stream()
         .map(this::findValue) // returns Optional<String>
