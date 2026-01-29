@@ -30,8 +30,7 @@ Its main goal is to **reduce `NullPointerException` (NPE)** and make the **absen
 ### 3.1 `Optional.empty()`
 Creates an empty `Optional`.
 
-```java
-Optional<String> opt = Optional.empty();
+`Optional<String> opt = Optional.empty();`
 
 Creates an Optional containing a non-null value
 `Optional<String> opt = Optional.of("Java");`
