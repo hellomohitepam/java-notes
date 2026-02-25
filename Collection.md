@@ -43,6 +43,14 @@
 - The Collection interface defines a set of core methods that are implemented by all classes that implement the interface. These methods allow for basic operations such as adding, removing, and checking the existence of elements in a collection.
 
 # List
+(a new array is created with a size 1.5 times the old array)
+```
+//java.util.Arrays$ArrayList
+//java.util.ArrayList
+Object[] array = list.toArray();
+list.toArray(new Integer[0]);
+```
+## copyOnwriteArrayList
 > Copy on Write means that whenever a write operation like adding or removing an element happen
 > instead of directly modifying the existing list a new copy of the list is created, and the modification is applied to that copy
 > This ensures that other threads reading the list while it’s being modified are unaffected.
@@ -69,6 +77,78 @@
             }
         }
 ```
+---
+
+# MAP
+<img width="856" height="484" alt="image" src="https://github.com/user-attachments/assets/613b0487-c0ce-479c-9e05-3ea44ee7b51e" />
+
+## HashMap component
+- key -> The identifier used to retrieve the value 
+- value -> The data associated with the key
+- Bucket -> A place where key-value pair are stored. (Think of buckets as cells in a list(array))
+- A hash function is an algorithm that convert key to index(bucket location) for storage.
+
+## How Data is Stored in HashMap
+
+Step 1: Hashing the Key
+
+First, the key is passed through a hash function to generate a unique hash code which helps determine where the key-value pair will be stored in the array (called a "bucket array").
+
+Step 2: Calculating the Index
+
+The hash code is then used to calculate an index in the array (bucket location) using:
+
+int index = hashCode % arraySize;
+
+The index decides which bucket will hold this key-value pair.
+
+Step 3: Storing in the Bucket
+
+The key-value pair is stored in the bucket at the calculated index. Each bucket can hold multiple key-value pairs.
+
+(This is called a collision handling mechanism, discussed later.)
+
+## How HashMap Retrieves Data
+
+When we call get(key), the HashMap follows these steps:
+
+Hashing the Key: Similar to insertion, the key is hashed using the same hash function to calculate its hash code.
+
+Finding the Index: The hash code is used to find the index of the bucket where the key-value pair is stored.
+
+Searching in the Bucket: Once the correct bucket is found, it checks for the key in that bucket. If it finds the key, it returns the associated value.
+
+## Handling Collisions
+
+Since different keys can generate the same index (called a collision), HashMap uses a technique to handle this situation. Java's HashMap uses linked lists (or balanced trees after Java 8) for this.
+
+If multiple key-value pairs map to the same bucket, they are stored in a linked list inside the bucket.
+
+When a key-value pair is retrieved, the HashMap traverses the linked list, checking each key until it finds a match.
+
+## HashMap Resizing (Rehashing)
+- HashMap has an internal array size, default is 16. When the number of key-value pairs exceeds a certain load factor (default is 0.75), HashMap automatically resizes the array to hold more data. This process is called rehashing.
+- During rehashing The array size is doubled.
+1. All existing entries are rehashed (i.e., their positions are recalculated) and placed into the new array.
+2. This ensures the HashMap continues to perform efficiently even as more data is added.
+
+
+## SortedMap
+- is an interface that extends Map and guarantees that the entries are sorted based on the keys, either in their natural ordering or by a specified Comparator.
+
+## NavigableMap 
+-extends SortedMap, providing more powerful navigation options such as finding the closest matching key or retrieving the map in reverse order.
+
+
+- in object we have hashcode(by playing memory address) & equals(by reference)
+- for custom class write hashcode and equals
+- only primitive and String do not go with the memory they go according to their rule.
+
+
+
+
+
+
 
 
 
