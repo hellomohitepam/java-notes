@@ -137,7 +137,7 @@ When a key-value pair is retrieved, the HashMap traverses the linked list, check
 - is an interface that extends Map and guarantees that the entries are sorted based on the keys, either in their natural ordering or by a specified Comparator.
 
 ## NavigableMap 
--extends SortedMap, providing more powerful navigation options such as finding the closest matching key or retrieving the map in reverse order.
+- extends SortedMap, providing more powerful navigation options such as finding the closest matching key or retrieving the map in reverse order.
 
 # INTERNAL KNOWLEDGE
 - in object we have hashcode(by playing memory address) & equals(by reference)
@@ -158,20 +158,76 @@ getOrDefault("Mohit",0)
 putIfPresent
 ```
 
+# HastTable
 
+- Hashtable is synchronized
+- no null key or value
+- Legacy Class, ConcurrentHashMap
+- slower than HashMap
+- only linked list in case of collision
+- all methods are synchronized {get, put,}
 
+# ConcurrentHashMap
 
+## Java 7 --> segment based locking --> 16 segments --> smaller hashmaps
+- Only the segment being written to or read from is locked
+- read: do not require locking unless there is a write operation happening on the same segment
+- write: lock
 
+## java 8 --> no segmentation
+- Compare-And-Swap approach --> no locking except resizing or collision
+- Thread A last saw --> x = 45
+- Thread A work --> x to 50
+- if x is still 45, then change it to 50 else don't change and retry
+- put --> index
+- incremental increase
 
+# MAP --> SORTED --> THREAD SAFE --> ConcurrentSkipListMap  
 
+## SkipList 
+- probabilistic data structure that allows for efficient search, insertion, and deletion operations.
+- It is similar to a sorted linked list but with multiple layers that "skip" over portions of the list to provide faster access to elements.
+> when we insert new element in the BST then lots of nodes reshuffle happens but in SkipList every level not gonna change its random
 
+# ENUM Map
+- array of size same as enum
+- no hashing
+- ordinal/index is used
+- FASTER THAN HASHMAP
+- MEMORY EFFICIENT 
 
+```java
+enum Day {
+    MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+}
 
+Map<Day, String> map = new EnumMap<>(Day.class);
 
+map.put(Day.TUESDAY, "Gym");
+map.put(Day.MONDAY, "Walk");
 
+String s = map.get(Day.TUESDAY);
+System.out.println(map);
 
+// Sorted according to ENUM
+```
+## ImmutableMapDemo
 
+```java
+Map<String, Integer> map1 = new HashMap<>();
+map1.put("A", 1);
+map1.put("B", 2);
 
+Map<String, Integer> map2 = Collections.unmodifiableMap(map1);
+
+map2.put("C", 3); //throws exception
+
+Map<String, Integer> map3 = Map.of("Shubham", 98, "Vivek", 89);
+map3.put("Akshit", 88);
+Map<String, Integer> map4 = Map.ofEntries(Map.entry("Akshit", 99), Map.entry("Vivek", 99)); //only 10 key-value pairs are allowed
+
+Map<String, Integer> map4 = Map.ofEntries(Map.entry("Akshit",99),Map.entry("Vivek",99));
+```
 
 
 
