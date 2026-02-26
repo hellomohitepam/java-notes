@@ -211,7 +211,7 @@ System.out.println(map);
 
 // Sorted according to ENUM
 ```
-## ImmutableMapDemo
+# ImmutableMap
 
 ```java
 Map<String, Integer> map1 = new HashMap<>();
