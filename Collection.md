@@ -139,10 +139,62 @@ When a key-value pair is retrieved, the HashMap traverses the linked list, check
 ## NavigableMap 
 -extends SortedMap, providing more powerful navigation options such as finding the closest matching key or retrieving the map in reverse order.
 
-
+# INTERNAL KNOWLEDGE
 - in object we have hashcode(by playing memory address) & equals(by reference)
 - for custom class write hashcode and equals
 - only primitive and String do not go with the memory they go according to their rule.
+
+
+```java
+// True for access order
+LinkedHashMap<String, Integer> linkedHashMap = new LinkedHashMap<>(11, 0.3f, true); // double linked list
+for (Map.Entry<String, Integer> entry : linkedHashMap.entrySet()) {
+       System.out.println(entry.getKey() + ": " + entry.getValue());
+}
+```
+
+```
+getOrDefault("Mohit",0)
+putIfPresent
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
