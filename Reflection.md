@@ -4,6 +4,7 @@
 
 # Important classes:
 - `java.lang.reflect`
+
 | Class       | Purpose                       |
 | ----------- | ----------------------------- |
 | Class       | Represents a class at runtime |
