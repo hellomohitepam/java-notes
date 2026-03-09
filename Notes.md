@@ -13,4 +13,29 @@ Of course! Here is the comparison of `Iterator` and `ListIterator` from the imag
 | **How to Obtain** | By calling the `iterator()` method on a collection object. | By calling the `listIterator()` method on a list object. |
 | **Core Methods** | `hasNext()`, `next()`, `remove()` | `hasNext()`, `next()`, `hasPrevious()`, `previous()`, `add()`, `set()`, `remove()` |
 
-Let me know if you'd like a more detailed explanation of any of these points
+# Collections (implement Iterable)
+```
+list.forEach(Consumer<T>)        // List, ArrayList, LinkedList
+set.forEach()                    // Set, HashSet, TreeSet
+queue.forEach()                  // Queue, PriorityQueue
+deque.forEach()                  // Deque, ArrayDeque
+map.forEach(BiConsumer<K,V>)     // e.g. map.forEach((k,v) -> System.out.println(k+v))
+```
+# Streams
+```
+stream.forEach()         // Stream<T>
+intStream.forEach()      // IntStream
+longStream.forEach()     // LongStream
+doubleStream.forEach()   // DoubleStream
+```
+# Cannot use forEach directly on:
+```
+int[] arr = {1,2,3};
+arr.forEach()  // ❌ arrays don't have forEach method
+
+// Instead use:
+Arrays.stream(arr).forEach()   // ✅
+```
+
+
+
