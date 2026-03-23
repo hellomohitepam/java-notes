@@ -481,7 +481,7 @@ List<String> words = Arrays.asList("hello", "world", "java", "streams", "collect
 | `groupingBy()`               | Multi-level grouping   | `Nested Map` | Performs hierarchical grouping    |
 
 8. Partitioning Elements
-Partitions elements into two groups (true and false) based on a predicate
+- partitioningBy is a special case of grouping that splits stream elements into exactly two groups — true and false — based on a Predicate. It always returns a Map<Boolean, ...>.
 ```java
 // 1. Basic - partitions into Map<Boolean, List<T>>
 Collectors.partitioningBy(Predicate<? super T> predicate)
