@@ -272,6 +272,10 @@ list.stream().forEach(x -> System.out.println(x));
 
 3. reduce
  Combines elements to produce a single result
+```
+T reduce(T identity, BinaryOperator<T> accumulator)
+Optional<T> reduce(BinaryOperator<T> accumulator)
+```
 
 ```java
 Optional<Integer> optionalInteger = list.stream().reduce(Integer::sum);
