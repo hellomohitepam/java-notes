@@ -438,7 +438,19 @@ Long count = nums.stream().collect(Collectors.counting());
 ```
 
 7. Grouping Elements
+```
+// 1. Basic - groups into Map<K, List<T>>
+Collectors.groupingBy(Function<? super T, ? extends K> classifier)
 
+// 2. With downstream collector
+Collectors.groupingBy(Function<? super T, ? extends K> classifier,
+                      Collector<? super T, A, D> downstream)
+
+// 3. With map factory + downstream collector
+Collectors.groupingBy(Function<? super T, ? extends K> classifier,
+                      Supplier<M> mapFactory,
+                      Collector<? super T, A, D> downstream)
+```
 ```java
 List<String> words = Arrays.asList("hello", "world", "java", "streams", "collecting");
         System.out.println(words.stream().collect(Collectors.groupingBy(String::length)));
