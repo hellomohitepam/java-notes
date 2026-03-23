@@ -438,15 +438,17 @@ Long count = nums.stream().collect(Collectors.counting());
 ```
 
 7. Grouping Elements
-```
+```java
 // 1. Basic - groups into Map<K, List<T>>
 Collectors.groupingBy(Function<? super T, ? extends K> classifier)
 
 // 2. With downstream collector
+// The second argument lets you further process each group:
 Collectors.groupingBy(Function<? super T, ? extends K> classifier,
                       Collector<? super T, A, D> downstream)
 
 // 3. With map factory + downstream collector
+// By default, the result is a HashMap
 Collectors.groupingBy(Function<? super T, ? extends K> classifier,
                       Supplier<M> mapFactory,
                       Collector<? super T, A, D> downstream)
@@ -455,8 +457,10 @@ Collectors.groupingBy(Function<? super T, ? extends K> classifier,
 List<String> words = Arrays.asList("hello", "world", "java", "streams", "collecting");
         System.out.println(words.stream().collect(Collectors.groupingBy(String::length)));
 // {4=[java], 5=[hello, world], 7=[streams], 10=[collecting]}
+
      System.out.println(words.stream().collect(Collectors.groupingBy(String::length, Collectors.joining(", "))));
 // {4=java, 5=hello, world, 7=streams, 10=collecting}
+
      System.out.println(words.stream().collect(Collectors.groupingBy(String::length, Collectors.counting())));
 // {4=1, 5=2, 7=1, 10=1}
 
@@ -464,9 +468,28 @@ List<String> words = Arrays.asList("hello", "world", "java", "streams", "collect
         System.out.println(treeMap);
 // {4=1, 5=2, 7=1, 10=1}
 ```
+# Common Downstream Collectors Summary
+| Downstream Result Type       | Purpose                | Result Type  | Description                       |
+| ---------------------------- | ---------------------- | ------------ | --------------------------------- |
+| `toList()`                   | Default grouping       | `List<T>`    | Collects elements into a list     |
+| `counting()`                 | Count per group        | `Long`       | Counts number of elements         |
+| `summingInt/Long/Double()`   | Sum a field            | `Number`     | Sums values of a numeric field    |
+| `averagingInt/Long/Double()` | Average a field        | `Double`     | Computes average of values        |
+| `joining()`                  | Concatenate strings    | `String`     | Joins elements into one string    |
+| `toSet()`                    | Deduplicate per group  | `Set<T>`     | Collects unique elements          |
+| `mapping()`                  | Transform then collect | Transformed  | Applies mapping before collecting |
+| `groupingBy()`               | Multi-level grouping   | `Nested Map` | Performs hierarchical grouping    |
 
 8. Partitioning Elements
 Partitions elements into two groups (true and false) based on a predicate
+```java
+// 1. Basic - partitions into Map<Boolean, List<T>>
+Collectors.partitioningBy(Predicate<? super T> predicate)
+
+// 2. With downstream collector
+Collectors.partitioningBy(Predicate<? super T> predicate,
+                          Collector<? super T, A, D> downstream)
+```
 ```java
 System.out.println(words.stream().collect(Collectors.partitioningBy(x -> x.length() > 5)));
 ```
