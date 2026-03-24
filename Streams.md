@@ -534,12 +534,43 @@ List<String> words2 = Arrays.asList("apple", "banana", "apple", "orange", "banan
         System.out.println(fruits.stream().collect(Collectors.toMap(x -> x.toUpperCase(), x -> x.length())));
 
 ```
+# Primitive Stream
+## 📊 Intermediate Operations on Primitive Streams
+### ✅ Common to IntStream, LongStream, DoubleStream
+| Operation  | Description                      | Example                      |
+| ---------- | -------------------------------- | ---------------------------- |
+| filter()   | Keep elements matching condition | `.filter(n -> n > 5)`        |
+| map()      | Transform values                 | `.map(n -> n * 2)`           |
+| mapToObj() | Convert to object stream         | `.mapToObj(n -> "N=" + n)`   |
+| boxed()    | Convert to wrapper stream        | `.boxed()`                   |
+| distinct() | Remove duplicates                | `.distinct()`                |
+| sorted()   | Sort elements                    | `.sorted()`                  |
+| peek()     | Debug / side action              | `.peek(System.out::println)` |
+| limit()    | Take first N elements            | `.limit(5)`                  |
+| skip()     | Skip first N                     | `.skip(3)`                   |
 
 
+# ✅ Type Conversion Operations
+| Operation        | Converts To  | Available On         |
+| ---------------- | ------------ | -------------------- |
+| mapToInt()       | IntStream    | Long/Double streams  |
+| mapToLong()      | LongStream   | Int/Double streams   |
+| mapToDouble()    | DoubleStream | Int/Long streams     |
+| asLongStream()   | LongStream   | IntStream only       |
+| asDoubleStream() | DoubleStream | IntStream/LongStream |
 
-
-
-
+# ✅ Flat Mapping (Java 9+)
+| Operation | Description               |
+| --------- | ------------------------- |
+| flatMap() | Map to stream and flatten |
+```java
+IntStream.of(1,2)
+         .flatMap(n -> IntStream.range(0, n));
+```
+# Primitive streams avoid boxing:
+- ✔ Faster
+- ✔ Less memory
+- ✔ Numeric operations supported
 
 
 
