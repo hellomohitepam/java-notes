@@ -331,7 +331,7 @@ System.out.println("Max: " + stats.getMax());
 Long count = nums.stream().collect(Collectors.counting());
 ```
 
-7. Grouping Elements
+## Grouping Elements
 ```java
 // 1. Basic - groups into Map<K, List<T>>
 Collectors.groupingBy(Function<? super T, ? extends K> classifier)
@@ -374,7 +374,7 @@ List<String> words = Arrays.asList("hello", "world", "java", "streams", "collect
 | `mapping()`                  | Transform then collect | Transformed  | Applies mapping before collecting |
 | `groupingBy()`               | Multi-level grouping   | `Nested Map` | Performs hierarchical grouping    |
 
-8. Partitioning Elements
+## Partitioning Elements
 - partitioningBy is a special case of grouping that splits stream elements into exactly two groups — true and false — based on a Predicate. It always returns a Map<Boolean, ...>.
 ```java
 // 1. Basic - partitions into Map<Boolean, List<T>>
@@ -388,7 +388,7 @@ Collectors.partitioningBy(Predicate<? super T> predicate,
 System.out.println(words.stream().collect(Collectors.partitioningBy(x -> x.length() > 5)));
 ```
 
-9. Mapping and Collecting
+## Mapping and Collecting
 Applies a mapping function before collecting
 ```java
  System.out.println(words.stream().collect(Collectors.mapping(x -> x.toUpperCase(), Collectors.toList())));
