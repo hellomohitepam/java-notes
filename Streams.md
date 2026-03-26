@@ -394,40 +394,67 @@ Applies a mapping function before collecting
  System.out.println(words.stream().collect(Collectors.mapping(x -> x.toUpperCase(), Collectors.toList())));
 ```
 
-10. toMap
+# toMap
+- Collectors.toMap() Arguments Has three overloads:
 
+## 1. Key mapper + Value mapper
+```java
+Collectors.toMap(
+        Function keyMapper,
+        Function valueMapper
+)
+```
+```java
+Map<String, Integer> map = Stream.of("apple", "bat", "cat")
+        .collect(Collectors.toMap(
+                x -> x,           // key   → word itself
+                x -> x.length()   // value → length of word
+        ));
+// {apple=5, bat=3, cat=3}
+```
+> ⚠️ Throws IllegalStateException if duplicate keys found.
+
+## 2. Key mapper + Value mapper + Merge function
+```jaba
+Collectors.toMap(
+        Function keyMapper,
+        Function valueMapper,
+        BinaryOperator mergeFunction   // handles duplicate keys
+)
+```
+```java
+Map<Integer, String> map = Stream.of("apple", "bat", "cat")
+        .collect(Collectors.toMap(
+                x -> x.length(),          // key   → length (duplicate possible)
+                x -> x,                   // value → word
+                (existing, newVal) -> existing + "," + newVal  // merge duplicates
+        ));
+// {5=apple, 3=bat,cat}
+```
+## 3. Key mapper + Value mapper + Merge function + Map factory
+```java
+Collectors.toMap(
+        Function keyMapper,
+        Function valueMapper,
+        BinaryOperator mergeFunction,
+        Supplier mapFactory            // TreeMap, LinkedHashMap etc
+)
+```
+```java
+TreeMap<Integer, String> map = Stream.of("apple", "bat", "cat")
+        .collect(Collectors.toMap(
+                x -> x.length(),
+                x -> x,
+                (a, b) -> a + "," + b,
+                TreeMap::new              // sorted map
+        ));
+// {3=bat,cat, 5=apple}
+```
 ```java
 List<String> words2 = Arrays.asList("apple", "banana", "apple", "orange", "banana", "apple");
         System.out.println(words2.stream().collect(Collectors.toMap(k -> k, v -> 1, (x, y) -> x + y)));;
 ```
 
-```java
-
-        // Example 1: Collecting Names by Length
-        List<String> l1 = Arrays.asList("Anna", "Bob", "Alexander", "Brian", "Alice");
-        System.out.println(l1.stream().collect(Collectors.groupingBy(String::length)));
-
-        // Example 2: Counting Word Occurrences
-        String sentence = "hello world hello java world";
-        System.out.println(Arrays.stream(sentence.split(" ")).collect(Collectors.groupingBy(x -> x, Collectors.counting())));
-
-        // Example 3: Partitioning Even and Odd Numbers
-        List<Integer> l2 = Arrays.asList(1, 2, 3, 4, 5, 6);
-        System.out.println(l2.stream().collect(Collectors.partitioningBy(x -> x % 2 == 0)));
-
-        // Example 4: Summing Values in a Map
-        Map<String, Integer> items = new HashMap<>();
-        items.put("Apple", 10);
-        items.put("Banana", 20);
-        items.put("Orange", 15);
-        System.out.println(items.values().stream().reduce(Integer::sum));
-        System.out.println(items.values().stream().collect(Collectors.summingInt(x -> x)));
-
-        // Example 5: Creating a Map from Stream Elements
-        List<String> fruits = Arrays.asList("Apple", "Banana", "Cherry");
-        System.out.println(fruits.stream().collect(Collectors.toMap(x -> x.toUpperCase(), x -> x.length())));
-
-```
 # Primitive Stream
 ## 📊 Intermediate Operations on Primitive Streams
 ### ✅ Common to IntStream, LongStream, DoubleStream
