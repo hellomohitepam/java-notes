@@ -232,8 +232,8 @@ stream.forEach(System.out::println);
 List<String> list1 = stream.map(String::toUpperCase).toList(); // exception
 ```
 
-Statefull: which know about the other elements like sorted
-stateless: which do not know about the other elements like map
+- Statefull: which know about the other elements like sorted
+- Stateless: which do not know about the other elements like map
 
 # Parallel Stream
 * A type of stream that enables parallel processing of elements
