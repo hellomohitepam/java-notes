@@ -3,8 +3,8 @@
 - A collection is simply an interface that represents a group of objects, known as its elements.
 
 ## Collection Framework
-- It provides a set of interfaces and classes that help in managing groups of object.
-> Before the introduction of the Collection Framework in JDK 1.2, Java used to rely on a variety of classes like `Vector`, `Stack`, `Hashtable`, and `arrays` to store and manipulate groups of objects.
+- The Java Collections Framework (JCF) is a unified architecture introduced in Java 2 (JDK 1.2) that provides a set of interfaces, implementations, and algorithms to store, retrieve, manipulate, and communicate aggregate data. 
+- Prior to JCF, Java had ad-hoc classes like `Vector`, `Stack`, `Hashtable`, and `arrays` to store and manipulate groups of objects.
 
 # Collection vs Collections
 | Feature         | `Collection`                                               | `Collections`                                                 |
