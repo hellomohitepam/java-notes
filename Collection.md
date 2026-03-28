@@ -39,7 +39,34 @@
 
 <img width="995" height="574" alt="image" src="https://github.com/user-attachments/assets/b9e2b3cb-6fd9-4915-aaea-ceb81b31e18e" />
 
+
 - The Collection interface defines a set of core methods that are implemented by all classes that implement the interface. These methods allow for basic operations such as adding, removing, and checking the existence of elements in a collection.
+
+# Common methods in Collection interface
+
+| Method                                | Return Type | Description                                              |
+| ------------------------------------- | ----------- | -------------------------------------------------------- |
+| `add(E e)`                            | boolean     | Adds an element to the collection                        |
+| `addAll(Collection<? extends E> c)`   | boolean     | Adds all elements from another collection                |
+| `remove(Object o)`                    | boolean     | Removes a specific element                               |
+| `removeAll(Collection<?> c)`          | boolean     | Removes all elements present in another collection       |
+| `retainAll(Collection<?> c)`          | boolean     | Keeps only elements that are in the specified collection |
+| `clear()`                             | void        | Removes all elements from the collection                 |
+| `contains(Object o)`                  | boolean     | Checks if the collection contains a specific element     |
+| `containsAll(Collection<?> c)`        | boolean     | Checks if all elements of another collection are present |
+| `isEmpty()`                           | boolean     | Returns true if the collection is empty                  |
+| `size()`                              | int         | Returns the number of elements in the collection         |
+| `iterator()`                          | Iterator<E> | Returns an iterator to traverse elements                 |
+| `toArray()`                           | Object[]    | Converts collection to an array                          |
+| `toArray(T[] a)`                      | T[]         | Converts collection to a typed array                     |
+| `equals(Object o)`                    | boolean     | Compares two collections for equality                    |
+| `hashCode()`                          | int         | Returns hash code value                                  |
+| `stream()`                            | Stream<E>   | Returns a sequential stream of elements                  |
+| `parallelStream()`                    | Stream<E>   | Returns a parallel stream                                |
+| `forEach(Consumer<? super E> action)` | void        | Performs an action for each element                      |
+
+- These methods are implemented by classes like ArrayList, HashSet, LinkedList, etc.
+- Some methods may behave differently depending on the implementation (e.g., duplicates allowed or not).
 
 # List
 (a new array is created with a size 1.5 times the old array)
